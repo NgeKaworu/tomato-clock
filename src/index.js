@@ -1,15 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import tasksReducer from "./reducer/task";
+import { render } from 'react-dom';
+import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
+import { createStore, applyMiddleware } from "redux";
+import reducer from "./reducers/clock";
+import logger from "redux-logger"
+import { Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.css';
 
-const store = createStore(tasksReducer);
+const store = createStore(
+    reducer,
+    applyMiddleware(logger)
+)
 
-ReactDOM.render(
-<Provider store={store}>
-    <Main />
-</Provider>
-, document.getElementById('root'));
+render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root')
+);
 registerServiceWorker();
