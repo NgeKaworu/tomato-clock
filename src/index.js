@@ -7,6 +7,7 @@ import reducer from "./reducers/clock";
 import logger from "redux-logger"
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
+import "./app.css";
 
 const store = createStore(
     reducer,
