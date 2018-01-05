@@ -1,14 +1,42 @@
 import React from "react";
-import propType from "prop-types";
+import PropTypes from "prop-types";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { ButtonToolbar } from "react-bootstrap";
 import OptionBtn from "../components/OptionBtn";
 import StartBtn from "../components/StartBtn";
-import { Button, ButtonToolbar } from "react-bootstrap";
+import * as ClockActions from "../actions";
 
-const CtrlBar = () => (
+const CtrlBar = ({ actions, runtime, deration }) => (
     <ButtonToolbar>
-        <StartBtn />
-        <OptionBtn />
+        <StartBtn 
+            actions={actions} 
+            runtime={runtime}
+            deration={deration}
+        />
+        <OptionBtn 
+            setDeration={actions.setDeration} 
+            runtime={runtime}
+        />
     </ButtonToolbar>
 )
 
-export default CtrlBar
+CtrlBar.propTypes = {
+    actions: PropTypes.object.isRequired,
+    runtime: PropTypes.bool.isRequired,
+    deration: PropTypes.number.isRequired
+}
+
+const mapStateToProps = state => ({
+    runtime: state.runtime.runtime,
+    deration: state.clock.deration
+})
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(ClockActions, dispatch)
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CtrlBar)

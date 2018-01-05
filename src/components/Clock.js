@@ -7,9 +7,9 @@ export default class Clock extends Component {
     }
 
     timeToHMS = time => {
-    const h = Math.floor(time / 3600),
-        m = Math.floor(time % 3600 / 60),
-        s = Math.floor(time % 3600 % 60);
+    const h = Math.floor(time / 3600000),
+        m = Math.floor(time % 3600000 / 60000 ),
+        s = Math.floor(time % 3600000 % 60000 / 1000 );
     return (h > 0 ? (h < 10 ? "0" + h : h) + ":" : "00:") + (m > 0 ? (m < 10 ? "0" + m : m) + ":" : "00:") + (s > 0 ? (s < 10 ? "0" + s : s) : "00");
     }
 

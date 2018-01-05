@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import { Button, Modal, ButtonToolbar, Form, FormGroup, ControlLabel, FormControl, InputGroup, Overlay, Tooltip } from "react-bootstrap";
+import { Button, Modal, Form, FormGroup, ControlLabel, FormControl, InputGroup, Overlay, Tooltip } from "react-bootstrap";
 
-export default class OptionBtn extends Component{
+export default class OptionBtn extends Component{ 
     state = {
         showModal: false,
         deration: 25,
@@ -10,13 +11,18 @@ export default class OptionBtn extends Component{
         error: false
     }
 
-    open = () => {
+    static propTypes = {
+        setDeration: PropTypes.func.isRequired,
+        runtime: PropTypes.bool.isRequired
+    }
+
+    _open = () => {
         this.setState({
             showModal: true
         })
     }
 
-    close = () => {
+    _close = () => {
         this.setState({
             showModal: false
         })
@@ -28,19 +34,30 @@ export default class OptionBtn extends Component{
                 validationState: "error",
                 error: true
             })
+            setTimeout(() => {
+                this.setState({
+                    validationState: null,
+                    error: false
+                })
+            }, 5000);
             e.preventDefault();
         }else{
             this.setState({
                 deration: e.target.value,
                 validationState: null,
-                error: false
+                error: false,
             })
+
         }
 
     }
 
-    handleSubmit = e => {
-        
+    handleSubmit = e => { 
+        const time = this.state.deration * 60000;
+        if(this.props.setDeration){
+            this.props.setDeration(time);
+        }
+            this._close();
     }
 
     render(){
@@ -52,8 +69,8 @@ export default class OptionBtn extends Component{
         return(
             
             <div>
-                <Button bsStyle="danger" onClick={this.open}>任务设置</Button>
-                <Modal bsSize="small" show={this.state.showModal} onHide={this.close}>
+                <Button bsStyle="danger" onClick={this._open} disabled={this.props.runtime}>任务设置</Button>
+                <Modal bsSize="small" show={this.state.showModal} onHide={this._close}>
                     <Modal.Header closeButton>
                         <Modal.Title>任务设置</Modal.Title>
                     </Modal.Header>
@@ -70,7 +87,7 @@ export default class OptionBtn extends Component{
                     </Modal.Body>
                     <Modal.Footer>
                         <Button bsStyle="success" onClick={this.handleSubmit}>确定</Button>
-                        <Button onClick={this.close}>取消</Button>
+                        <Button onClick={this._close}>取消</Button>
                     </Modal.Footer>
                 </Modal>
 
@@ -82,3 +99,4 @@ export default class OptionBtn extends Component{
     }
 
 }
+
