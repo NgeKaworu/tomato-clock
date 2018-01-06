@@ -1,1 +1,1 @@
-简单的react rudex 练习
+简单的react rudex router练习

@@ -7,6 +7,7 @@ import reducer from "./reducers";
 import logger from "redux-logger"
 import thunk from "redux-thunk";
 import { Provider } from 'react-redux';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import "./app.css";
 

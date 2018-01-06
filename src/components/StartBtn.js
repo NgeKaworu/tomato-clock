@@ -42,6 +42,10 @@ export default class StartBtn extends Component {
         }
     }
 
+    componentWillUnmount = () => {
+      //  clearInterval(this._timer);
+    }
+
     _countDown = () => {
         if(this.props.deration < 0) {
             this.handleStop();
