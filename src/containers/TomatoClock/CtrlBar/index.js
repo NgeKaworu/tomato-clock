@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { ButtonToolbar } from "react-bootstrap";
-import OptionBtn from "../components/OptionBtn";
-import StartBtn from "../components/StartBtn";
-import * as ClockActions from "../actions";
+import OptionBtn from "./OptionBtn";
+import StartBtn from "./StartBtn";
+import * as ClockActions from "../../../actions"; 
 
 const CtrlBar = ({ actions, runtime, deration }) => (
     <ButtonToolbar>

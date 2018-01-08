@@ -1,6 +1,6 @@
 import React from 'react';
-import ClockContainer from "../containers/ClockContainer";
-import CtrlBar from "../containers/CtrlBar";
+import ClockContainer from "./ClockContainer";
+import CtrlBar from "./CtrlBar";
 
 const TomatoClock = () => (
   <div className="container">

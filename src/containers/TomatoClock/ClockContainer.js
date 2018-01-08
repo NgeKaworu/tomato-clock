@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Clock from "../components/Clock";
+import Clock from "../../components/Clock";
 
 const ClockContainer = ({ deration }) => (
     <Clock deration={deration} />
