@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button } from "react-bootstrap";
+import StartBtn from "./../../../components/TomatoClock/CtrlBar/StartBtn";
 
-export default class StartBtn extends Component {
+export default class StartBtnContainer extends Component {
     static propTypes = {
         actions: PropTypes.object.isRequired,
         runtime: PropTypes.bool.isRequired,
@@ -43,7 +43,7 @@ export default class StartBtn extends Component {
     }
 
     componentWillUnmount = () => {
-      //  clearInterval(this._timer);
+        clearInterval(this._timer);
     }
 
     _countDown = () => {
@@ -55,17 +55,11 @@ export default class StartBtn extends Component {
     }
     
     render() {
-        return (
-            <div>
-                {
-                    this.props.runtime 
-                    ?
-                        <Button bsStyle="primary" onClick={this.handleStop}>结束</Button>
-                    :   
-                        <Button bsStyle="primary" onClick={this.handleStart}>开始</Button> 
-                }
-            </div>
-        )
+        return <StartBtn 
+            runtime={this.props.runtime}
+            clockStart={this.handleStart}
+            clockStop={this.handleStop}
+        />
     }
 
 }

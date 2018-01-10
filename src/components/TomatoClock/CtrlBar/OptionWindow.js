@@ -1,35 +1,27 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
-import { Button, Modal, Form, FormGroup, ControlLabel, FormControl, InputGroup, Overlay, Tooltip } from "react-bootstrap";
+import PropTypes from "prop-types";
+import { Button, Modal, Form, FormGroup, ControlLabel, InputGroup, FormControl, Overlay, Tooltip } from "react-bootstrap";
 
-export default class OptionBtn extends Component{ 
+export default class OptionWindow extends Component {
     state = {
-        showModal: false,
         deration: 25,
         validationState: null,
         error: false
     }
+    
+    static defaultPorps = {
+        showModal: false
+    }
 
     static propTypes = {
-        setDeration: PropTypes.func.isRequired,
-        runtime: PropTypes.bool.isRequired
-    }
-
-    _open = () => {
-        this.setState({
-            showModal: true
-        })
-    }
-
-    _close = () => {
-        this.setState({
-            showModal: false
-        })
+        close: PropTypes.func.isRequired,
+        showModal: PropTypes.bool.isRequired,
+        onSubmit: PropTypes.func.isRequired
     }
 
     handleChange = e => {
-        if(isNaN(e.target.value) || e.target.value <= 0){
+        if (isNaN(e.target.value) || e.target.value <= 0) {
             this.setState({
                 validationState: "error",
                 error: true
@@ -41,7 +33,7 @@ export default class OptionBtn extends Component{
                 })
             }, 5000);
             e.preventDefault();
-        }else{
+        } else {
             this.setState({
                 deration: e.target.value,
                 validationState: null,
@@ -52,25 +44,21 @@ export default class OptionBtn extends Component{
 
     }
 
-    handleSubmit = e => { 
-        const time = this.state.deration * 60000;
-        if(this.props.setDeration){
-            this.props.setDeration(time);
+    handleSubmit = time => {
+        const convertedTime = this.state.deration * 60000;
+        if (this.props.onSubmit) {
+            this.props.onSubmit(convertedTime);
         }
-            this._close();
     }
-
+    
     render(){
         const sharedProps = {
             show: this.state.error,
             target: () => ReactDOM.findDOMNode(this.refs.target)
         };
-
-        return(
-            
+        return (
             <div>
-                <Button bsStyle="danger" onClick={this._open} disabled={this.props.runtime}>任务设置</Button>
-                <Modal bsSize="small" show={this.state.showModal} onHide={this._close}>
+                <Modal bsSize="small" show={this.props.showModal} onHide={this.props.close}>
                     <Modal.Header closeButton>
                         <Modal.Title>任务设置</Modal.Title>
                     </Modal.Header>
@@ -79,7 +67,7 @@ export default class OptionBtn extends Component{
                             <FormGroup controlId="setWorkTime" validationState={this.state.validationState}>
                                 <ControlLabel>自定义时间</ControlLabel>
                                 <InputGroup>
-                                    <FormControl value={this.state.deration} onChange={this.handleChange} ref="target"/>
+                                    <FormControl placeholder={this.state.deration} onChange={this.handleChange} ref="target" autoFocus/>
                                     <InputGroup.Addon>分钟</InputGroup.Addon>
                                 </InputGroup>
                             </FormGroup>
@@ -87,7 +75,7 @@ export default class OptionBtn extends Component{
                     </Modal.Body>
                     <Modal.Footer>
                         <Button bsStyle="success" onClick={this.handleSubmit}>确定</Button>
-                        <Button onClick={this._close}>取消</Button>
+                        <Button onClick={this.props.close}>取消</Button>
                     </Modal.Footer>
                 </Modal>
 
@@ -95,8 +83,6 @@ export default class OptionBtn extends Component{
                     <Tooltip id="overload-top">请输入一个大于零的数字</Tooltip>
                 </Overlay>
             </div>
-        )
+            )   
     }
-
 }
-

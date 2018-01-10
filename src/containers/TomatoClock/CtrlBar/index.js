@@ -1,30 +1,61 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { ButtonToolbar } from "react-bootstrap";
-import OptionBtn from "./OptionBtn";
-import StartBtn from "./StartBtn";
-import * as ClockActions from "../../../actions"; 
+import { Button, ButtonToolbar } from "react-bootstrap";
+import StartBtnContainer from "./StartBtnContainer";
+import OptionWindowContainer from "./OptionWindowContainer";
+import * as ClockActions from "./../../../actions";
 
-const CtrlBar = ({ actions, runtime, deration }) => (
-    <ButtonToolbar>
-        <StartBtn 
-            actions={actions} 
-            runtime={runtime}
-            deration={deration}
-        />
-        <OptionBtn 
-            setDeration={actions.setDeration} 
-            runtime={runtime}
-        />
-    </ButtonToolbar>
-)
+class CtrlBar extends Component {
+    state = {
+        optionWindowShowModal: false
+    }
 
-CtrlBar.propTypes = {
-    actions: PropTypes.object.isRequired,
-    runtime: PropTypes.bool.isRequired,
-    deration: PropTypes.number.isRequired
+    static propTypes = {
+        runtime: PropTypes.bool.isRequired,
+        deration: PropTypes.number.isRequired,
+        action: PropTypes.object.isRequired
+    }
+
+    optionWindowClose = () => {
+        this.setState({
+            optionWindowShowModal: false
+        })
+    }
+
+    optionWindowOpen = () => {
+        console.log("123");
+        this.setState({
+            optionWindowShowModal: true
+        })
+    }
+
+    render(){
+        return (
+        <div>
+            <ButtonToolbar>
+                <StartBtnContainer
+                    actions={this.props.actions}
+                    runtime={this.props.runtime}
+                    deration={this.props.deration}
+                />
+                <Button 
+                    bsStyle="danger"  
+                    onClick={this.optionWindowOpen} 
+                    disabled={this.props.runtime}>
+                    任务设置
+                </Button>
+            </ButtonToolbar>
+
+            <OptionWindowContainer 
+                showModal={this.state.optionWindowShowModal}
+                close={this.optionWindowClose}
+                setDeration={this.props.actions.setDeration}
+            />
+        </div>
+        )
+    }
 }
 
 const mapStateToProps = state => ({
@@ -35,7 +66,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(ClockActions, dispatch)
 })
-
+    
 export default connect(
     mapStateToProps,
     mapDispatchToProps
