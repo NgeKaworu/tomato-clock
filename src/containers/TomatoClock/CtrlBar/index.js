@@ -14,8 +14,8 @@ class CtrlBar extends Component {
 
     static propTypes = {
         runtime: PropTypes.bool.isRequired,
-        deration: PropTypes.number.isRequired,
-        action: PropTypes.object.isRequired
+        clock: PropTypes.object.isRequired,
+        actions: PropTypes.object.isRequired
     }
 
     optionWindowClose = () => {
@@ -25,7 +25,6 @@ class CtrlBar extends Component {
     }
 
     optionWindowOpen = () => {
-        console.log("123");
         this.setState({
             optionWindowShowModal: true
         })
@@ -38,7 +37,7 @@ class CtrlBar extends Component {
                 <StartBtnContainer
                     actions={this.props.actions}
                     runtime={this.props.runtime}
-                    deration={this.props.deration}
+                    clock={this.props.clock}
                 />
                 <Button 
                     bsStyle="danger"  
@@ -60,7 +59,7 @@ class CtrlBar extends Component {
 
 const mapStateToProps = state => ({
     runtime: state.runtime.runtime,
-    deration: state.clock.deration
+    clock: state.clock
 })
 
 const mapDispatchToProps = dispatch => ({
