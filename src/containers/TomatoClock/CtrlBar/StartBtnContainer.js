@@ -14,7 +14,7 @@ export default class StartBtnContainer extends Component {
     }
 
     state = {
-        derationBackup: 1500000
+        derationBackup: this.props.deration
     }
 
     handleStart = () => {
@@ -39,9 +39,6 @@ export default class StartBtnContainer extends Component {
     }
 
     componentWillMount = () => {
-        this.setState({
-            derationBackup: this.props.clock.deration
-        });
         let localClock = this._loadFormLocalStorage();
         let lastTime = localClock.clock.planStopTime - Date.now()
         if (localClock.runtime && lastTime > 0){
