@@ -1,6 +1,6 @@
 import { START_CLOCK, STOP_CLOCK, SET_DERATION, COUNT_DOWN } from "../constants/ActionTypes";
 
-export default function clock(state = { deration: 1500000 }, action){
+const clock = (state = { deration: 1500000 }, action) => {
     switch (action.type) {
         case START_CLOCK:
             return {
@@ -27,3 +27,5 @@ export default function clock(state = { deration: 1500000 }, action){
             return state
     }
 }
+
+export default clock 

@@ -4,3 +4,5 @@ export const COUNT_DOWN = "COUNT_DOWN"
 export const SET_DERATION = "SET_DERATION"
 
 
+export const AUTH_LOGIN = "AUTH_LOGIN"
+export const AUTH_LOGOUT = "AUTH_LOGOUT"

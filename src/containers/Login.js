@@ -1,16 +1,25 @@
 import React, { Component } from "react";
-import fakeAuth from "./../api/login";
+import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom';
 import { Button } from "react-bootstrap";
+import PropTypes from 'prop-types';
+import fakeAuth from './../api/login';
+import { authLogin } from "./../actions/auth";
 
-export default class Login extends Component {
+
+class Login extends Component {
     state = {
         redirectToReferrer: false
     }
 
+    static propTypes = {
+        authLogin: PropTypes.func.isRequired
+    }
+
     login = () => {
         fakeAuth.authenticate( () => {
-            this.setState({ redirectToReferrer: true })
+            this.props.authLogin();
+            this.setState({ redirectToReferrer: true });
         })
     }
 
@@ -19,12 +28,10 @@ export default class Login extends Component {
         const { redirectToReferrer } = this.state;
 
         if(redirectToReferrer){
-            console.log("true");
             return (
                 <Redirect to={from} />
             )
         } else {
-            console.log("false");
             return (
             <div>
                 { from.pathname !== '/' ? (<p>登录以访问<code>{from.pathname}</code></p>) : "" }
@@ -33,3 +40,17 @@ export default class Login extends Component {
             )}     
     }
 }
+
+// const mapStateToProps = state => {
+//     auth: state.auth
+// }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        authLogin: () => {
+            dispatch(authLogin());
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login);
