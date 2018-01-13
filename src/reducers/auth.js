@@ -1,14 +1,23 @@
-import { AUTH_LOGIN, AUTH_LOGOUT } from "./../constants/ActionTypes";
+import { AUTH_LOGIN, AUTH_LOGOUT, IS_FETCHING } from "./../constants/ActionTypes";
 
-const auth = (state = { isAuthenticated: false }, action) => {
+const auth = (state = { isAuthenticated: false, isFetching: false }, action) => {
     switch(action.type){
         case AUTH_LOGIN:
             return {
-                isAuthenticated: true
+                ...state,
+                isAuthenticated: true,
+                isFetching: false
             }
         case AUTH_LOGOUT:
             return {
-                isAuthenticated: false
+                ...state,
+                isAuthenticated: false,
+                isFetching: false
+            }
+        case IS_FETCHING:
+            return {
+                ...state,
+                isFetching: true
             }
         default:
             return state;

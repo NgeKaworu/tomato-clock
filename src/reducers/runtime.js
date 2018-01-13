@@ -4,10 +4,12 @@ const runtime = (state = { runtime: false }, action) => {
     switch (action.type) {
         case START_CLOCK:
             return {
+                ...state,
                 runtime: true
             }
         case STOP_CLOCK:
             return {
+                ...state,
                 runtime: false
             }
         default:

@@ -1,4 +1,14 @@
-import { AUTH_LOGIN, AUTH_LOGOUT } from "./../constants/ActionTypes";
+import fakeAuth from "./../api/fakeAuth";
+import { AUTH_LOGIN, AUTH_LOGOUT, IS_FETCHING } from "./../constants/ActionTypes";
 
-export const authLogin = () => ({ type: AUTH_LOGIN })
-export const authLogout = () => ({ type: AUTH_LOGOUT })
+const authLogin = () => ({ type: AUTH_LOGIN })
+const authLogout = () => ({ type: AUTH_LOGOUT })
+const isFetching = () => ({ type: IS_FETCHING })
+
+export const loginWithFakeAsync = () => dispatch => {
+    dispatch(isFetching());
+    fakeAuth.authenticate(() => {
+            dispatch(authLogin());
+        }
+    )
+}

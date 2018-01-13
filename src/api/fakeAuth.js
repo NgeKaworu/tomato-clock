@@ -1,4 +1,4 @@
-const TIMEOUT = 100;
+const TIMEOUT = 1000;
 
 const fakeAuth = {
     authenticate: (cb, timeout) => {
