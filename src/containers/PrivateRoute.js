@@ -12,7 +12,7 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
             ) : (
                 <Redirect to={{
                     pathname: '/login',
-                    state: { from: props.location }
+                    state: { from: props.location.pathname }
                 }} />
             )
         )
@@ -25,7 +25,7 @@ PrivateRoute.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.reducer.auth.isAuthenticated
 })
 
 export default connect(mapStateToProps)(PrivateRoute)

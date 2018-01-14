@@ -12,7 +12,7 @@ ClockContainer.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    deration: state.clock.deration
+    deration: state.reducer.clock.deration
 })
 
 export default connect(

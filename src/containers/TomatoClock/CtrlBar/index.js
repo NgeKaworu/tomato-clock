@@ -58,8 +58,8 @@ class CtrlBar extends Component {
 }
 
 const mapStateToProps = state => ({
-    runtime: state.runtime.runtime,
-    clock: state.clock
+    runtime: state.reducer.runtime.runtime,
+    clock: state.reducer.clock
 })
 
 const mapDispatchToProps = dispatch => ({
