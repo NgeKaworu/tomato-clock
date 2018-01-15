@@ -7,8 +7,15 @@ const isFetching = () => ({ type: IS_FETCHING })
 
 export const loginWithFakeAsync = () => dispatch => {
     dispatch(isFetching());
-    fakeAuth.authenticate(() => {
+    fakeAuth.fakeAsync(() => {
             dispatch(authLogin());
         }
+    )
+}
+export const logoutWithFakeAsync = () => dispatch => {
+    dispatch(isFetching());
+    fakeAuth.fakeAsync(() => {
+        dispatch(authLogout());
+    }
     )
 }

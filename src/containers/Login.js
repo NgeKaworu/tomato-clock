@@ -24,6 +24,9 @@ class Login extends Component {
     render() {
         const { from } = this.props.location.state || { from:  '/' };
         const { isAuthenticated, isFetching } = this.props;
+
+        console.log(typeof from)
+
         if(isFetching){
             return (
                 <div>Lodding...</div>
@@ -31,15 +34,11 @@ class Login extends Component {
         }
 
         if (isAuthenticated){
-            return this.props.history.action !== "POP" 
-            ? 
-                (<div>{ this.props.history.goBack() }</div>) 
-            : 
-                (<Redirect to={from} />)
+            return <Redirect to={{pathname: from }} />
         } else {
             return (
             <div>
-                { from !== '/' ? (<p>登录以访问<code>{from}</code></p>) : "" }
+                <p>登录以访问<code>{from}</code></p>
                 <Button onClick={this.login}>登陆</Button>
             </div>
         )}     
@@ -47,8 +46,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.reducer.auth.isAuthenticated,
-    isFetching: state.reducer.auth.isFetching
+    isAuthenticated: state.auth.isAuthenticated,
+    isFetching: state.auth.isFetching
 })
 
 const mapDispatchToProps = dispatch => ({
