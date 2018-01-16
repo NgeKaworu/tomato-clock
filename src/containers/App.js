@@ -1,17 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 import { Route, Link, NavLink, Switch } from "react-router-dom";
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from "react-bootstrap";
 import TomatoClock from "./TomatoClock";
 import TodoList from "./TodoList";
 import PrivateRoute from './PrivateRoute';
 import Login from "./Login";
-import TestPg from "./../components/test";
+import TestPg from "./../components/Test";
+import NotFound from "./NotFound";
 import { logoutWithFakeAsync } from "./../actions/auth";
 
 
-const App = ({ isAuthenticated, logoutWithFakeAsync, pathname }) => (
+const App = ({ isAuthenticated, logoutWithFakeAsync, location }) => (
     <div>
             <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
@@ -37,11 +39,11 @@ const App = ({ isAuthenticated, logoutWithFakeAsync, pathname }) => (
                         <MenuItem eventKey={1.1}>{
                             isAuthenticated 
                             ?
-                                <Link className="NavLink" onClick={logoutWithFakeAsync}>注销</Link>
+                                <a className="NavLink" onClick={logoutWithFakeAsync}>注销</a>
                             :
                                 <Link className="NavLink" to={{
                                     pathname: '/login',
-                                    state: { from: pathname }
+                                    state: { from: location }
                                 }} >登陆</Link>
                         }
                         </MenuItem>
@@ -55,8 +57,14 @@ const App = ({ isAuthenticated, logoutWithFakeAsync, pathname }) => (
                 <Route path="/" exact component={TomatoClock} />
                 <Route path="/login" component={Login} />
                 <Route path="/TestPg" component={TestPg} />
+                <Route path="/404" component={NotFound} />
                 <PrivateRoute path="/todoList" component={TodoList} />
-               
+                <Route render={ () => (
+                    <Redirect to={{
+                        pathname: '/404',
+                        state: { from: location }
+                    }} />
+                )} />
             </Switch>
         </div>
 )
@@ -64,12 +72,12 @@ const App = ({ isAuthenticated, logoutWithFakeAsync, pathname }) => (
 App.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     logoutWithFakeAsync: PropTypes.func.isRequired,
-    pathname: PropTypes.string.isRequired
+    location: PropTypes.string.isRequired
 }
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    pathname: state.router.location.pathname
+    location: state.router.location
 })
 
 const mapDispatchToProps = dispatch => ({

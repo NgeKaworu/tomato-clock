@@ -22,10 +22,8 @@ class Login extends Component {
     }
 
     render() {
-        const { from } = this.props.location.state || { from:  '/' };
+        const { from } = this.props.location.state || { from: { pathname: '/' } };
         const { isAuthenticated, isFetching } = this.props;
-
-        console.log(typeof from)
 
         if(isFetching){
             return (
@@ -34,11 +32,11 @@ class Login extends Component {
         }
 
         if (isAuthenticated){
-            return <Redirect to={{pathname: from }} />
+            return <Redirect to={from}/>
         } else {
             return (
             <div>
-                <p>登录以访问<code>{from}</code></p>
+                    <p>登录以访问<code>{from.pathname}</code></p>
                 <Button onClick={this.login}>登陆</Button>
             </div>
         )}     
