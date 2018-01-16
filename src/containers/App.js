@@ -72,7 +72,7 @@ const App = ({ isAuthenticated, logoutWithFakeAsync, location }) => (
 App.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
     logoutWithFakeAsync: PropTypes.func.isRequired,
-    location: PropTypes.string.isRequired
+    location: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
