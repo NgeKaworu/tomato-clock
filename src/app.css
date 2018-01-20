@@ -7,7 +7,7 @@
 .NavLink:hover {
     text-decoration: none;
     margin-bottom: -2px;
-    border-bottom: 2px solid #ff0000;
+    border-bottom: 2px solid #707070;
 }
 
 .NavLink.active {

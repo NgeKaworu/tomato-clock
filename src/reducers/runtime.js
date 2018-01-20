@@ -1,17 +1,11 @@
 import { START_CLOCK, STOP_CLOCK } from "../constants/ActionTypes";
 
-const runtime = (state = { runtime: false }, action) => {
+const runtime = (state = false, action) => {
     switch (action.type) {
         case START_CLOCK:
-            return {
-                ...state,
-                runtime: true
-            }
+            return true
         case STOP_CLOCK:
-            return {
-                ...state,
-                runtime: false
-            }
+            return false
         default:
             return state
     }
