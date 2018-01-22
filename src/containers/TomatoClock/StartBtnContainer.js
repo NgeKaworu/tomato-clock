@@ -1,18 +1,24 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import StartBtn from "./../../components/TomatoClock/CtrlBar/StartBtn";
+import StartBtn from "./../../components/TomatoClock/StartBtn";
 import * as switchActions from "./../../actions/clockSwitch";
 
-const StartBtnContainer = ({ runtime, actions }) => (
-    <StartBtn 
-        runtime={runtime}
-        clockStart={actions.switchOn}
-        clockStop={actions.switchOff}
-    />
-)
+class StartBtnContainer extends Component {
+
+    render() {
+        const { runtime, actions } = this.props
+        return (
+        <StartBtn
+            runtime={runtime}
+            clockStart={actions.switchOn}
+            clockStop={actions.switchOff}
+        />
+        )
+    }
+}
 
 StartBtnContainer.propTypes = {
     runtime: PropTypes.bool.isRequired,

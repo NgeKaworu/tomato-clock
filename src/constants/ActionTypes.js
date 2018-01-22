@@ -13,3 +13,14 @@ export const IS_FETCHING = "IS_FETCHING"
 /*          clockCoreSwitch            */
 export const SWITCH_ON = "SWITCH_ON"
 export const SWITCH_OFF = "SWITCH_OFF"
+
+/*          todos            */
+export const ADD_TODO = 'ADD_TODO'
+export const DELETE_TODO = 'DELETE_TODO'
+export const EDIT_TODO = 'EDIT_TODO'
+export const COMPLETE_TODO = 'COMPLETE_TODO'
+export const COMPLETE_ALL = 'COMPLETE_ALL'
+export const CLEAR_COMPLETED = 'CLEAR_COMPLETED'
+
+/*          currentId            */
+export const CHANGE_ID ="CHANGE_ID"

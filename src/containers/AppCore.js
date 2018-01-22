@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as clockActions from "./../../actions/clock";
-import * as switchActions from "./../../actions/clockSwitch";
+import * as clockActions from "./../actions/clock";
+import * as switchActions from "./../actions/clockSwitch";
 
 
 class ClockCore extends Component {

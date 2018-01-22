@@ -1,11 +1,11 @@
 import React from "react";
 import RootRouter from "./Router";
-import ClockCore from "./TomatoClock/ClockCore";
+import AppCore from "./AppCore";
 
 const App = () => (
     <div>
         <RootRouter></RootRouter>
-        <ClockCore></ClockCore>
+        <AppCore></AppCore>
     </div>
 )
 

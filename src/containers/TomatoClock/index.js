@@ -5,7 +5,7 @@ import StartBtnContainer from "./StartBtnContainer";
 const TomatoClock = () => (
   <div className="container">
     <ClockContainer />
-    <StartBtnContainer />
+    <StartBtnContainer smallStyle>abc</StartBtnContainer>
   </div>
 )
 
