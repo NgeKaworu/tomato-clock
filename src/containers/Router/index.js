@@ -27,13 +27,13 @@ const App = ({ isAuthenticated, logoutWithFakeAsync, location }) => (
                 </Navbar.Header>
                 <Navbar.Collapse>
                 <Nav> 
-                    <LinkContainer className="NavLink" exact to="/" >
+                    <LinkContainer className="nav-link" exact to="/" >
                         <NavItem eventKey={1}>番茄钟</NavItem>
                     </LinkContainer>
-                    <LinkContainer className="NavLink" to="/todoList" >
+                    <LinkContainer className="nav-link" to="/todoList" >
                         <NavItem eventKey={2}>任务列表</NavItem>
                     </LinkContainer>
-                    <LinkContainer className="NavLink" to="/TestPg" >
+                    <LinkContainer className="nav-link" to="/TestPg" >
                         <NavItem eventKey={3}>测试页</NavItem>
                     </LinkContainer>
                 </Nav>
@@ -42,9 +42,9 @@ const App = ({ isAuthenticated, logoutWithFakeAsync, location }) => (
                     {
                         isAuthenticated 
                         ?
-                        <MenuItem eventKey={1.1} className="NavLink" onClick={logoutWithFakeAsync}>注销</MenuItem>
+                        <MenuItem eventKey={1.1} className="nav-link" onClick={logoutWithFakeAsync}>注销</MenuItem>
                         :
-                        <LinkContainer className="NavLink" to={{
+                        <LinkContainer className="nav-link" to={{
                             pathname: '/login',
                             state: { from: location }
                         }}>

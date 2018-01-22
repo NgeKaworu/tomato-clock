@@ -3,7 +3,7 @@ import RootRouter from "./Router";
 import AppCore from "./AppCore";
 
 const App = () => (
-    <div>
+    <div className="app">
         <RootRouter></RootRouter>
         <AppCore></AppCore>
     </div>

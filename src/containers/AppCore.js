@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as clockActions from "./../actions/clock";
 import * as switchActions from "./../actions/clockSwitch";
+import { completeTodo } from "./../actions/todos";
 
 
 class ClockCore extends Component {
@@ -13,7 +14,9 @@ class ClockCore extends Component {
         clockSwitch: PropTypes.bool.isRequired,
         clock: PropTypes.object.isRequired,
         clockActions: PropTypes.object.isRequired,
-        switchActions: PropTypes.object.isRequired
+        switchActions: PropTypes.object.isRequired,
+        completeTodo: PropTypes.func.isRequired,
+        currentId: PropTypes.number.isRequired
     }
 
     state = {
@@ -34,11 +37,11 @@ class ClockCore extends Component {
 
     handleStop = () => {
         const { clockActions, switchActions } = this.props
+        switchActions.switchOff();
         const date = Date.now();
         clockActions.stopClock(date);
         clearInterval(this._timer);
         clockActions.setDeration(this.state.derationBackup);
-        switchActions.switchOff();
     }
 
     componentWillMount = () => {
@@ -74,9 +77,10 @@ class ClockCore extends Component {
     }
 
     _countDown = () => {
-        const { clock, clockActions } = this.props;
+        const { clock, clockActions, completeTodo, currentId } = this.props;
         if(clock.deration < 0) {
             this.handleStop();
+            completeTodo(currentId);
         } else {
             clockActions.countDown();
         }
@@ -93,7 +97,7 @@ class ClockCore extends Component {
 
     render() {
 
-        return <div></div>
+        return null;
     }
 
 }
@@ -101,12 +105,14 @@ class ClockCore extends Component {
 const mapStateToProps = state => ({
     runtime: state.runtime,
     clockSwitch: state.clockSwitch,
-    clock: state.clock
+    clock: state.clock,
+    currentId: state.currentId
 })
 
 const mapDispatchToProps = dispatch => ({
     clockActions: bindActionCreators(clockActions, dispatch),
-    switchActions: bindActionCreators(switchActions, dispatch)
+    switchActions: bindActionCreators(switchActions, dispatch),
+    completeTodo: id => dispatch(completeTodo(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClockCore)

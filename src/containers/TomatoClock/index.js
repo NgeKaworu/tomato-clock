@@ -1,11 +1,12 @@
 import React from 'react';
 import ClockContainer from "./ClockContainer";
-import StartBtnContainer from "./StartBtnContainer";
+import ControlGroupContainer from "./ControlGroupContainer";
 
 const TomatoClock = () => (
   <div className="container">
     <ClockContainer />
-    <StartBtnContainer smallStyle>abc</StartBtnContainer>
+    <ControlGroupContainer/>
+    <ControlGroupContainer todoStyle/>
   </div>
 )
 

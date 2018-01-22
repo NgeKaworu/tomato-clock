@@ -1,15 +1,42 @@
-.NavLink {
+*{
+    font-family: "Microsoft YaHei"; 
+}
+
+small {
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+.nav-link {
     color: #999999;
     display: block;
     text-align: center;
 }
 
-.NavLink:hover {
+.nav-link:hover {
     text-decoration: none;
     margin-bottom: -2px;
     border-bottom: 2px solid #707070;
 }
 
-.NavLink.active {
+.nav-link.active {
     color: #ffffff
 }
+
+.clock-view {
+    font-size: 8rem;
+    text-align: center;
+}
+
+.start-btn{
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+.todo-style-title {
+    font-size: 2rem;
+    line-height: 4rem;
+    margin-right: 1rem;
+    float: left;
+}
+

@@ -15,7 +15,11 @@ export default class Clock extends Component {
 
     render(){
         return (
-            <h1>{this.timeToHMS(this.props.deration)}</h1>
+            <div>
+            <hr />
+            <h1 className="clock-view">{this.timeToHMS(this.props.deration)}</h1>
+            <hr/>
+            </div>
         )
     }
 
