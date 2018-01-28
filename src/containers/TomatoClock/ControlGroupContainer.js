@@ -54,15 +54,16 @@ class ControlGroupContainer extends Component {
 
     _getTitleById = () => {
         const { cid } = this.state;
-        const { todoStyle ,todo } = this.props;
+        const { todoStyle ,todos } = this.props;
         if(todoStyle){
-            return todo.filter( todo => todo.id === cid).text
+            return todos.filter( todo => todo.id === cid)[0].text
         }
     }
 
     render() {
         const { runtime, switchActions, todoStyle } = this.props;
-
+        const title = this._getTitleById();
+        console.log(title)
         return (
             <ControlGroup
                 todoStyle={todoStyle}
@@ -70,6 +71,7 @@ class ControlGroupContainer extends Component {
                 handleSubmit={this.handleSubmit}
                 handleStop={switchActions.switchOff}
                 handleComplete={this.handleComplete}
+                title={title}
             />
         )
     }

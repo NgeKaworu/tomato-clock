@@ -35,9 +35,9 @@ class NotFound extends Component {
         ?
             <Redirect to='/' />
         :
-            (<div className="container">
-                <h1 className="not-found">404!</h1>
-                <h2>您输入的网页并不存在。
+            (<div>
+                <h1 className="component-title">404!</h1>
+                <h2 className="center">您输入的网页并不存在。
                 <small>{count}秒后为您跳转回<Link to="/">首页</Link>。</small>
                 </h2>
             </div>)

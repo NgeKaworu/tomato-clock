@@ -47,11 +47,14 @@ class ClockCore extends Component {
     componentWillMount = () => {
         const { clockActions, switchActions } = this.props 
         let localClock = this._loadFormLocalStorage();
-        let lastTime = localClock.clock.planStopTime - Date.now()
-        if (localClock.runtime && lastTime > 0){
-            clockActions.setDeration(lastTime);
-            switchActions.switchOn();
-            this.handleStart();
+        console.log(localClock)
+        if(localClock){
+            let lastTime = localClock.clock.planStopTime - Date.now()
+            if (localClock.runtime && lastTime > 0){
+                clockActions.setDeration(lastTime);
+                switchActions.switchOn();
+                this.handleStart();
+            }
         }
     }
 
@@ -88,7 +91,7 @@ class ClockCore extends Component {
 
     _loadFormLocalStorage = () => {
         let localClock = localStorage.getItem('clock');
-        return localClock = localClock ? JSON.parse(localClock) : {};
+        return localClock = localClock ? JSON.parse(localClock) : null;
     }
 
     _updateLocalStorage = ( obj ) => {

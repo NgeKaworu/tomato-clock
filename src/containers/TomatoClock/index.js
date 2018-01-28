@@ -6,7 +6,7 @@ const TomatoClock = () => (
   <div className="container">
     <ClockContainer />
     <ControlGroupContainer/>
-    <ControlGroupContainer todoStyle/>
+
   </div>
 )
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { Button, Modal, Form, FormGroup, ControlLabel, InputGroup, FormControl, Overlay, Tooltip, ButtonToolbar } from "react-bootstrap";
+import classnames from "classnames";
 
 export default class ControlGroup extends Component {
     static propTypes = {
@@ -10,6 +11,7 @@ export default class ControlGroup extends Component {
         handleSubmit: PropTypes.func.isRequired,
         handleComplete: PropTypes.func.isRequired,
         todoStyle: PropTypes.bool.isRequired,
+        title: PropTypes.string
     }
 
     static defaultProps = {
@@ -19,7 +21,7 @@ export default class ControlGroup extends Component {
     state = {
         showModal: false,
         deration: 25,
-        title: "快速开始",
+        title: this.props.title || "快速开始",
         validationState: null,
         error: false
     }
@@ -76,21 +78,21 @@ export default class ControlGroup extends Component {
         return runtime
             ?
             <ButtonToolbar>
-                <Button bsStyle="danger" onClick={handleStop} bsSize="large" block={!todoStyle}>终止</Button>
-                <Button bsStyle="success" onClick={handleComplete} bsSize="large" block={!todoStyle}>完成</Button>
+                <Button bsStyle="danger" onClick={handleStop} bsSize={todoStyle ? null : "large"} block={!todoStyle}>终止</Button>
+                <Button bsStyle="success" onClick={handleComplete} bsSize={todoStyle ? null : "large"} block={!todoStyle}>完成</Button>
             </ButtonToolbar>
             :
-            <Button bsStyle="primary" onClick={this._open} bsSize="large" block={!todoStyle}>开始</Button >
+            <Button bsStyle="primary" onClick={this._open} bsSize={todoStyle ? null : "large"} block={!todoStyle}>开始</Button >
     }
 
     renderTitle = () => {
         const { todoStyle } = this.props;
         const { title } = this.state;
-        return todoStyle
+        return !todoStyle 
             ?
-            <div className="todo-style-title">{title}</div>
+                <h2>当前任务: <small>{title}</small></h2>
             :
-            <h2>当前任务: <small>{title}</small></h2>
+                null
     }
 
     render() {
@@ -102,7 +104,10 @@ export default class ControlGroup extends Component {
             target: () => ReactDOM.findDOMNode(this.refs.target)
         };
         return (
-            <div className="start-btn">
+            <div className={classnames({
+                'app-btn': true,
+                'todo-style-btn': this.props.todoStyle
+                })}>
                 {this.renderTitle()}
                 {this.renderButtonToolbar()}
                 <Modal show={showModal} onHide={this._close}>

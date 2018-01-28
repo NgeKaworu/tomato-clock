@@ -27,7 +27,7 @@ class Login extends Component {
 
         if(isFetching){
             return (
-                <div>Lodding...</div>
+                <h1 className="component-title">Lodding...</h1>
             )
         }
 
@@ -36,8 +36,9 @@ class Login extends Component {
         } else {
             return (
             <div>
-                    <p>登录以访问<code>{from.pathname}</code></p>
-                <Button onClick={this.login}>登陆</Button>
+                <h1 className="component-title">登陆</h1>
+                <h1 className="center">登录以访问<code>{from.pathname}</code></h1>
+                <Button className="app-btn" onClick={this.login} block>登陆</Button>
             </div>
         )}     
     }
