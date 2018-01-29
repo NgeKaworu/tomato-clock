@@ -21,13 +21,13 @@ const App = ({ isAuthenticated, logoutWithFakeAsync, location }) => (
             <Navbar inverse collapseOnSelect>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <Link to="/">TomatoClock-TodoList</Link>
+                        <Link to="/tomato-clock">TomatoClock-TodoList</Link>
                     </Navbar.Brand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
                 <Nav> 
-                    <LinkContainer className="nav-link" exact to="/" >
+                    <LinkContainer className="nav-link" exact to="/tomato-clock" >
                         <NavItem eventKey={1}>番茄钟</NavItem>
                     </LinkContainer>
                     <LinkContainer className="nav-link" to="/todoList" >
@@ -58,7 +58,7 @@ const App = ({ isAuthenticated, logoutWithFakeAsync, location }) => (
             </Navbar>
 
             <Switch>
-                <Route path="/" exact component={TomatoClock} />
+                <Route path="/tomato-clock" exact component={TomatoClock} />
                 <Route path="/login" component={Login} />
                 <Route path="/TestPg" component={TestPg} />
                 <Route path="/404" component={NotFound} />
