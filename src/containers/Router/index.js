@@ -11,7 +11,7 @@ import TomatoClock from "./../TomatoClock";
 import TodoList from "./../TodoList";
 import PrivateRoute from './PrivateRoute';
 import Login from "./Login";
-import TestPg from "./../../components/Test";
+import TestPg from "./../../components/Test.js";
 import NotFound from "./NotFound";
 import { logoutWithFakeAsync } from "./../../actions/auth";
 
