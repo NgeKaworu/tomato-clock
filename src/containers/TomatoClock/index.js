@@ -1,11 +1,12 @@
 import React from 'react';
 import ClockContainer from "./ClockContainer";
-import CtrlBar from "./CtrlBar";
+import ControlGroupContainer from "./ControlGroupContainer";
 
 const TomatoClock = () => (
   <div className="container">
     <ClockContainer />
-    <CtrlBar />
+    <ControlGroupContainer/>
+
   </div>
 )
 
