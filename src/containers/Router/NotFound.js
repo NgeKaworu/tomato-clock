@@ -33,12 +33,12 @@ class NotFound extends Component {
         const { count } = this.state;
         return count === 0
         ?
-            <Redirect to='/' />
+            <Redirect to='/tomato-clock' />
         :
             (<div>
                 <h1 className="component-title">404!</h1>
                 <h2 className="center">您输入的网页并不存在。
-                <small>{count}秒后为您跳转回<Link to="/">首页</Link>。</small>
+                <small>{count}秒后为您跳转回<Link to="/tomato-clock">首页</Link>。</small>
                 </h2>
             </div>)
     }
