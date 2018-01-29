@@ -1,7 +1,7 @@
 {
   "name": "tomato",
   "version": "0.2.0",
-  "homepage": "https://ngekaworu.github.io/tomato-clock",
+  "homepage": "https://ngekaworu.github.io",
   "private": true,
   "dependencies": {
     "bootstrap": "^3.3.7",
