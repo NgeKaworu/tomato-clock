@@ -10,7 +10,7 @@ export default class TodoItem extends Component {
     todo: PropTypes.object.isRequired,
     editTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    completeTodo: PropTypes.func.isRequired
+    onCompleted: PropTypes.func.isRequired
   }
 
   state = {
@@ -19,6 +19,16 @@ export default class TodoItem extends Component {
 
   handleDoubleClick = () => {
     this.setState({ editing: true })
+  }
+
+  handleTouchStart = () => {
+    this._timer = setTimeout(() => {
+      this.setState({ editing: true })
+    }, 1000);
+  }
+
+  handleTouchCancel = () => {
+    clearTimeout(this._timer)
   }
 
   handleSave = (id, text) => {
@@ -31,7 +41,7 @@ export default class TodoItem extends Component {
   }
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props
+    const { todo, deleteTodo, onCompleted } = this.props
     let element
     if (this.state.editing) {
       element = (
@@ -45,13 +55,15 @@ export default class TodoItem extends Component {
           <input className="toggle"
                  type="checkbox"
                  checked={todo.completed}
-                 onChange={() => completeTodo(todo.id)} />
-          <label onDoubleClick={this.handleDoubleClick}>
+                 onChange={() => onCompleted(todo.id)} />
+          <label onDoubleClick={this.handleDoubleClick}
+                 onTouchStart={this.handleTouchStart}
+                 onTouchCancel={this.handleTouchCancel}>
             {todo.text}
           </label>
           <div className="destroy"
                   onClick={() => deleteTodo(todo.id)} />
-          <ControlGroupContainer todoStyle id={todo.id} onDoubleClick={this.handleDoubleClick}/>
+          {!todo.completed ? <ControlGroupContainer todoStyle id={todo.id} onDoubleClick={this.handleDoubleClick}/> : null}
         </div>
       )
     }

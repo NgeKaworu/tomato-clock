@@ -1,15 +1,9 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from "../constants/ActionTypes";
+import { ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED, INIT_TODOS } from "../constants/ActionTypes";
 
-const initialState = [
-    {
-        text: 'Use Redux',
-        completed: false,
-        id: 1
-    }
-]
-
-const todos = (state = initialState, action) => {
+const todos = (state = [], action) => {
     switch (action.type) {
+        case INIT_TODOS:
+         return action.todos
         case ADD_TODO:
             return [
                 ...state,

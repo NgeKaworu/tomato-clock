@@ -13,7 +13,8 @@ const TODO_FILTERS = {
 export default class MainSection extends Component {
   static propTypes = {
     todos: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+    onCompleted: PropTypes.func.isRequired
   }
 
   state = { filter: SHOW_ALL }
@@ -34,6 +35,7 @@ export default class MainSection extends Component {
           <input className="toggle-all"
                  type="checkbox"
                  checked={completedCount === todos.length}
+                 onChange={actions.completeAll}
                  />
           <label onClick={actions.completeAll}/>
         </span>
@@ -58,7 +60,7 @@ export default class MainSection extends Component {
   }
 
   render() {
-    const { todos, actions } = this.props
+    const { todos, actions, onCompleted } = this.props
     const { filter } = this.state
 
     const filteredTodos = todos.filter(TODO_FILTERS[filter])
@@ -72,7 +74,11 @@ export default class MainSection extends Component {
         {this.renderToggleAll(completedCount)}
         <ul className="todo-list">
           {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
+            <TodoItem 
+              key={todo.id} 
+              todo={todo} 
+              {...actions} 
+              onCompleted={onCompleted} />
           )}
         </ul>
         {this.renderFooter(completedCount)}

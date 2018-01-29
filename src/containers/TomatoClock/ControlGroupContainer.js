@@ -14,7 +14,7 @@ class ControlGroupContainer extends Component {
     static defaultProps = {
         todoStyle: false,
     }
-    
+
     static propTypes = {
         currentId: PropTypes.number.isRequired,
         todoStyle: PropTypes.bool.isRequired,
@@ -32,14 +32,14 @@ class ControlGroupContainer extends Component {
     state = {
         cid: this.props.id || this.props.todos.reduce((maxId, todo) => Math.max(todo.id, maxId), 0) + 1
     }
-    
+
     handleSubmit = (text, time) => {
         const { todoStyle, addTodo, switchActions, editTodo, changeId, setDeration, id } = this.props;
         const { cid } = this.state;
-        if(todoStyle){
+        if (todoStyle) {
             editTodo(id, text);
-        }else{
-            addTodo(text); 
+        } else {
+            addTodo(text);
         }
         changeId(cid);
         setDeration(time);
@@ -53,29 +53,60 @@ class ControlGroupContainer extends Component {
     }
 
     _getTitleById = () => {
+        const { todos } = this.props;
         const { cid } = this.state;
-        const { todoStyle ,todos } = this.props;
-        if(todoStyle){
-            return todos.filter( todo => todo.id === cid)[0].text
+        return todos.filter(todo => todo.id === cid)[0].text
+
+    }
+
+    _show = () => {
+
+        const { runtime, todos, currentId } = this.props;
+
+
+        const { cid } = this.state;
+        let completed = todos.filter(todo => todo.id === cid)[0].completed
+        if (runtime) {
+            return currentId === cid;
+        } else {
+            return completed === false;
         }
     }
 
+
     render() {
         const { runtime, switchActions, todoStyle } = this.props;
-        const title = this._getTitleById();
-        console.log(title)
-        return (
-            <ControlGroup
-                todoStyle={todoStyle}
-                runtime={runtime}
-                handleSubmit={this.handleSubmit}
-                handleStop={switchActions.switchOff}
-                handleComplete={this.handleComplete}
-                title={title}
-            />
-        )
+
+        if (todoStyle) {
+            const title = this._getTitleById();
+            const didShow = this._show();
+            return didShow
+                ?
+                (
+                    <ControlGroup
+                        todoStyle={todoStyle}
+                        runtime={runtime}
+                        handleSubmit={this.handleSubmit}
+                        handleStop={switchActions.switchOff}
+                        handleComplete={this.handleComplete}
+                        title={title}
+                    />
+                )
+                : null
+        } else {
+            return (
+                <ControlGroup
+                    todoStyle={todoStyle}
+                    runtime={runtime}
+                    handleSubmit={this.handleSubmit}
+                    handleStop={switchActions.switchOff}
+                    handleComplete={this.handleComplete}
+                />
+            )
+        }
+
     }
-    
+
 }
 
 const mapStateToProps = state => ({

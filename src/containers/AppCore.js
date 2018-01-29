@@ -5,10 +5,10 @@ import { bindActionCreators } from 'redux';
 
 import * as clockActions from "./../actions/clock";
 import * as switchActions from "./../actions/clockSwitch";
-import { completeTodo } from "./../actions/todos";
+import { completeTodo, initTodos } from "./../actions/todos";
 
 
-class ClockCore extends Component {
+class AppCore extends Component {
     static propTypes = {
         runtime: PropTypes.bool.isRequired,
         clockSwitch: PropTypes.bool.isRequired,
@@ -16,7 +16,9 @@ class ClockCore extends Component {
         clockActions: PropTypes.object.isRequired,
         switchActions: PropTypes.object.isRequired,
         completeTodo: PropTypes.func.isRequired,
-        currentId: PropTypes.number.isRequired
+        currentId: PropTypes.number.isRequired,
+        initTodos: PropTypes.func.isRequired,
+        todos: PropTypes.array.isRequired
     }
 
     state = {
@@ -47,7 +49,6 @@ class ClockCore extends Component {
     componentWillMount = () => {
         const { clockActions, switchActions } = this.props 
         let localClock = this._loadFormLocalStorage();
-        console.log(localClock)
         if(localClock){
             let lastTime = localClock.clock.planStopTime - Date.now()
             if (localClock.runtime && lastTime > 0){
@@ -59,14 +60,14 @@ class ClockCore extends Component {
     }
 
     componentDidUpdate = () => {
-        const { runtime, clockSwitch } = this.props;
+        const { runtime, clockSwitch, clock, todos } = this.props;
         if (!runtime && clockSwitch) {
             this.handleStart();
         }
         if (runtime && !clockSwitch) {
             this.handleStop();
         }
-        this._updateLocalStorage({ clock: this.props.clock, runtime: this.props.runtime });
+        this._updateLocalStorage({ clock, runtime }, todos);
     }
 
     componentWillUnmount = () => {
@@ -91,15 +92,18 @@ class ClockCore extends Component {
 
     _loadFormLocalStorage = () => {
         let localClock = localStorage.getItem('clock');
+        let localTodos = localStorage.getItem('todos');
+        localTodos = localTodos ? JSON.parse(localTodos) : [];
+        this.props.initTodos(localTodos);
         return localClock = localClock ? JSON.parse(localClock) : null;
     }
 
-    _updateLocalStorage = ( obj ) => {
-        localStorage.setItem('clock', JSON.stringify(obj))
+    _updateLocalStorage = ( clockObj, todosArr ) => {
+        localStorage.setItem('clock', JSON.stringify(clockObj));
+        localStorage.setItem('todos', JSON.stringify(todosArr));
     }
 
     render() {
-
         return null;
     }
 
@@ -109,14 +113,16 @@ const mapStateToProps = state => ({
     runtime: state.runtime,
     clockSwitch: state.clockSwitch,
     clock: state.clock,
-    currentId: state.currentId
+    currentId: state.currentId,
+    todos: state.todos
 })
 
 const mapDispatchToProps = dispatch => ({
     clockActions: bindActionCreators(clockActions, dispatch),
     switchActions: bindActionCreators(switchActions, dispatch),
-    completeTodo: id => dispatch(completeTodo(id))
+    completeTodo: id => dispatch(completeTodo(id)),
+    initTodos: todos => dispatch(initTodos(todos))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClockCore)
+export default connect(mapStateToProps, mapDispatchToProps)(AppCore)
 
