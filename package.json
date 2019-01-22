@@ -1,10 +1,12 @@
 {
   "name": "tomato",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "homepage": "https://ngekaworu.github.io/tomato-clock",
   "private": true,
   "dependencies": {
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
+    "gh-pages": "^1.1.0",
     "history": "^4.7.2",
     "react": "^16.2.0",
     "react-bootstrap": "^0.31.5",
@@ -20,6 +22,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
